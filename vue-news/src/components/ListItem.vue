@@ -45,14 +45,6 @@ export default {
     console.log(this.$route);
     const name = this.$route.name;
 
-    if(name==='news'){
-        this.$store.dispatch('FETCH_NEWS');
-    }else if(name==='asks'){
-        this.$store.dispatch('FETCH_ASKS');
-    }else if (name==='jobs'){
-        this.$store.dispatch('FETCH_JOBS');
-    }
-
 
   
   },
