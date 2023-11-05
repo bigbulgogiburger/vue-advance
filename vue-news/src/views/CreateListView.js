@@ -3,7 +3,7 @@ import bus from '@/utils/bus';
 
 export default function createListView(name){
     return {
-
+        name: name,
         created(){
             bus.$emit('start:spinner');
             setTimeout(()=>{

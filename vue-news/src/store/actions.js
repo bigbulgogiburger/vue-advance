@@ -1,8 +1,10 @@
-import { fetchAskList,fetchNewsList, fetchJobsList, fetchUserInfo, fetchItemInfo, fetchList } from "../api/index.js";
+import { 
+    // fetchAskList,fetchNewsList, fetchJobsList, 
+    fetchUserInfo, fetchItemInfo, fetchList } from "../api/index.js";
 
 export default {
     FETCH_NEWS(context) {
-        fetchNewsList()
+        return fetchNewsList()
         .then(response=>{
             context.commit('SET_NEWS',response.data);
             return response;
@@ -14,30 +16,36 @@ export default {
 
     },
     FETCH_JOBS({ commit }){
-        fetchJobsList().then(({data})=>{
+        return fetchJobsList().then(({data})=>{
             console.log(commit)
             commit('SET_JOBS',data);
         }).catch(error=>{console.log(error)})
     },
     FETCH_ASKS({ commit }){
-        fetchAskList().then(({ data })=>{
+        return fetchAskList().then(({ data })=>{
             commit('SET_ASKS',data);
         }).catch(error=>{console.log(error)})
     },
     FETCH_USER({ commit },userName){
-        fetchUserInfo(userName).then(({ data })=>{
+        return fetchUserInfo(userName).then(({ data })=>{
             commit('SET_USER',data)
         }).catch(error=>{console.log(error)})
     },
 
     FETCH_ITEM({commit},id){
-        fetchItemInfo(id).then(({data})=>{
+        return fetchItemInfo(id).then(({data})=>{
             commit('SET_ITEM',data)
         }).catch(error=>{console.log(error)})
     },
+    // #2
     FETCH_LIST({commit}, pageName){
-        fetchList(pageName).then(({ data }) => {
-            commit('SET_LIST',data)
+        // #3
+        // return을 하게 되면 promise로 chaining이 되어서, .then을 실행할 수 있도록 한다.
+        return fetchList(pageName)
+        .then(({ data }) => {
+            // #4
+            commit('SET_LIST',data);
+            return data
         }).catch(error=> console.log(error))
 
     }
